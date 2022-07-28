@@ -1,0 +1,12 @@
+{% extends "billingapp/base.html" %}
+{% block body_block %}
+<form method="POST">
+    {% csrf_token %}
+    <center>
+        <table>
+            {{yearinstance.as_table}}
+        </table>
+        <input type="submit" value="Save"/>
+    </center>
+</form>
+{% endblock %}

@@ -1,0 +1,258 @@
+{% extends "billingapp/base.html" %}
+{% block body_block %}
+<div class="sales-title-div">
+    <h5>Sales Returns</h5>
+</div>
+<form method="POST">
+    {% csrf_token %}
+    {{BridgeReturnForm.management_form}}
+    <div style="border: 1px solid green; height: 25px;">
+
+    {% if SalesReturnForm.errors %}
+        {% for fields in SalesReturnForm %}
+        {% for error in field.errors %}
+            <p>{{error}}</p>
+        {% endfor %}
+        {% endfor %}
+        {% for error in SalesReturnForm.non_field_errors %}
+            <p>{{error}}</p>
+        {% endfor %}
+    {% endif %}
+
+    </div>
+    <div class="container-top">
+        <div class="row">
+            <div class="col-md-2">
+            <div class="form-group">
+                {{SalesReturnForm.return_salesinvoiceno.label}}
+                {{SalesReturnForm.return_salesinvoiceno}}
+            </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group" id="sales_returns_type">
+                    {{SalesReturnForm.sales_type.label}}
+                    {{SalesReturnForm.sales_type}}
+                </div>
+                </div>
+            <div class="col-md-2">
+            <div class="form-group">
+                {{SalesReturnForm.sales_state.label}}
+                {{SalesReturnForm.sales_state}}
+                
+            </div>
+            </div>
+            <!-- <div class="col-md-2">
+            <div class="form-group">
+                State Code
+                <input type="text" id="state_code_id" readonly=readonly/>
+            </div>
+            </div> -->
+            <div class="col-md-2">
+            <div class="form-group">
+                {{SalesReturnForm.invoice_date.label}}
+                {{SalesReturnForm.invoice_date}} 
+            </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    SalesCredit
+                    {{SalesReturnForm.sales_credit}}
+                </div>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-md-4">
+                {{SalesReturnForm.customer.label}}
+                {{SalesReturnForm.customer}}
+            </div>
+           
+            <!-- <div class="col-md-2">
+            <div>
+                <label>Mobile No</label>
+                <input type="text" id="mobile_no_id" readonly=readonly/>
+            </div>
+            </div> -->
+        </div>
+        </div>
+        <input type="button" id="sales_return_addmore_btn" value="Add More"/>
+        <div id="sales_return_formsetid" style="overflow-y:auto;overflow-x:auto; height: 250px; border: 1px solid blue; width: 1260px;">
+            <table class="table table-striped table-bordered  border-collapse " id="sales_return_bridge_tableid" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>ItemCode</th>
+                        <th>HSN</th>
+                        <th>Qty</th>
+                        <th>UOM</th>
+                        <th>Rate</th>
+                        <th>Disc</th>
+                        <th>Taxable</th>
+                        <th>Tax</th>
+                        <th>Cgst%</th>
+                        <th>Cgst</th>
+                        <th>Sgst%</th>
+                        <th>Sgst</th>
+                        <th>Igst%</th>
+                        <th>Igst</th>
+                        <th>Amount</th>
+                        <th>Del</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for items in BridgeReturnForm %}
+                    <tr>
+                        <td>{{items.sales_item}}</td>
+                        <td>{{items.sales_item_code}}</td>
+                        <td>{{items.salesitem_hsncode}}</td>
+                        <td>{{items.salesitem_quantity}}</td>
+                        <td>{{items.sales_uom}}</td>
+                        <td>{{items.salesitem_rate}}</td>
+                        <td>{{items.salesitem_disc}}</td>
+                        <td>{{items.salesitem_taxable}}</td>
+                        <td>{{items.salesitem_tax}}</td>
+                        <td>{{items.salesitem_CGST}}</td>
+                        <td>{{items.salesitem_CGSTamnt}}</td>
+                        <td>{{items.salesitem_SGST}}</td>
+                        <td>{{items.salesitem_SGSTamnt}}</td>
+                        <td>{{items.salesitem_IGST}}</td>
+                        <td>{{items.salesitem_IGSTamnt}}</td>
+                        <td>{{items.salesitem_amnt}}</td>
+                        <td>{{items.DELETE}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="container-bottom">
+            <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                <div class="col-md-3">
+                    TaxableAmnt
+                    <div>{{SalesReturnForm.sales_taxableamnt}}</div>
+                </div>
+                <div class="col-md-3">
+                    CGSTAmnt
+                    <div>{{SalesReturnForm.sales_CGSTAmnt}}</div>
+                </div>
+                <div class="col-md-3">
+                    SGSTAmnt
+                    <div>{{SalesReturnForm.sales_SGSTAmnt}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    IGSTAmnt
+                    <div>{{SalesReturnForm.sales_IGSTAmnt}}</div>
+                </div>
+                <div class="col-md-3">
+                    SubTotal
+                    <div>{{SalesReturnForm.sales_subtotal}}</div>
+                </div>
+                <div class="col-md-3">
+                    Discount
+                    <div>{{SalesReturnForm.sales_Discount}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    GTotal
+                    <div>{{SalesReturnForm.sales_GTotal}}</div>
+                </div>
+                <div class="col-md-3">
+                    Paymode
+                    <div>{{SalesReturnForm.sales_Paymode}}</div>
+                </div>
+                <div class="col-md-3">
+                    <div> &nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <div><input type="submit" value="Save"/></div>
+                </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div>
+            <table class="table table-striped table-bordered table-sm" id="id_sales_gst_summary">
+                <thead>
+                    <tr>
+                        <th>GST</th>
+                        <th>Taxable</th>
+                        <th>CGST</th>
+                        <th>SGST</th>
+                        <th>IGST</th>
+                        <th>Amount</th>
+                        <th>Cess</th>
+                        </tr>
+                </thead>
+                <tbody class="id_sales_gst_summary_tbody">
+                    {% if GST_Wiselist %}
+                                {% for item in GST_Wiselist %}
+                                <tr>
+                                <td>{{item.salesgst_rate}}</td>
+                                <td>{{item.sales_taxable_amount}}</td>
+                                <td>{{item.sales_CGST}}</td>
+                                <td>{{item.sales_SGST}}</td>
+                                <td>{{item.sales_IGST}}</td>
+                                <td>{{item.salesitem_amnt}}</td>
+                                <td></td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                </tr>
+                                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+</div>
+<div id="sales_return_empty_form_id" style="display: none;">
+    <table id="empty_sales_form_id1" style="margin-top:0px; border-collapse:collapse; width: 100%;" class="table table-striped table-bordered table-sm padding_zero_table">
+        <thead class="hiding">
+            <tr>
+                <th ></th>
+                <th ></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tr>
+            <td>{{BridgeReturnForm.empty_form.sales_item}}</td>
+            <td>{{BridgeReturnForm.empty_form.sales_item_code}}</td>
+            <td>{{BridgeReturnForm.empty_form.salesitem_hsncode}}</td>
+            <td>{{BridgeReturnForm.empty_form.salesitem_quantity}}</td>
+            <td style="width: 50px;">{{BridgeReturnForm.empty_form.sales_uom}}</td>
+            <td>{{BridgeReturnForm.empty_form.salesitem_rate}}</td>
+            <td>{{BridgeReturnForm.empty_form.salesitem_disc}}</td>
+            <td>{{BridgeReturnForm.empty_form.salesitem_taxable}}</td>
+            <td style="width: 50px;">{{BridgeReturnForm.empty_form.salesitem_tax}}</td>
+            <td style="width: 50px;">{{BridgeReturnForm.empty_form.salesitem_CGST}}</td>
+            
+            <td>{{BridgeReturnForm.empty_form.salesitem_CGSTamnt}}</td>
+            <td style="width: 50px;">{{BridgeReturnForm.empty_form.salesitem_SGST}}</td>
+            <td>{{BridgeReturnForm.empty_form.salesitem_SGSTamnt}}</td>
+            <td style="width: 50px;">{{BridgeReturnForm.empty_form.salesitem_IGST}}</td>
+            <td>{{BridgeReturnForm.empty_form.salesitem_IGSTamnt}}</td>
+            <td>{{BridgeReturnForm.empty_form.salesitem_amnt}}</td>
+            <td>{{BridgeReturnForm.empty_form.DELETE}}</td>   
+        </tr>
+    </table>
+</div>
+</form>
+
+{% endblock %}

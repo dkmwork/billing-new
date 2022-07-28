@@ -1,0 +1,17 @@
+{% extends "billingapp/base.html" %}
+{% block body_block %}
+<form method="POST">
+    {% csrf_token %}
+    <center>
+    <div class="card">
+        <div class="card-header"><h5>Create Company</h5></div>
+        <div class="card-body" style="height: 100px;">
+        <table>
+            {{Company.as_table}}
+        </table>
+        </div>
+        <input type="submit" class="btn btn-info" value="Save"/>
+    </div>
+    </center>
+</form>
+{% endblock %}

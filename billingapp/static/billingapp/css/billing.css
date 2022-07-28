@@ -1,0 +1,142 @@
+input[name$='ST']{
+    width: 75px;
+}
+input[name$='item_quantity']{
+    width: 65px;
+}
+input[name$='item_rate']{
+    width: 75px;
+}
+input[name$='item_disc']{
+    width: 75px;
+}
+input[name$='item_taxable']{
+    width: 100px;
+}
+input[name$='item_tax']{
+    width: 50px;
+}
+input[name$='item_amnt']{
+    width: 100px;
+}
+select[name$='-item']{
+    width: 200px;
+}
+input[name$='-item_hsncode']{
+    width: 70px;
+}
+
+.hiding th {
+    height: 0px;
+    line-height: 0px;
+ }
+ textarea[name$='remarks']{
+     width: 400px;
+     height: 30px;
+     
+ }
+ .container-top,.container-bottom{
+     border: 1px solid gray; 
+ }
+ .container-top{
+     margin-top: 30px;
+ }
+ .container-bottom{
+     margin-top:40px;
+ }
+ .purchase-title-div{
+     background-color: lightblue;
+     font-family: 'Courier New', Courier, monospace;
+ }
+ #purchase_formsetid{
+     border:1px solid grey;
+
+ }
+ #purchase_return_formsetid{
+    border:1px solid grey; 
+ }
+ .card{
+    background-color: #B2EBF2;
+    border-radius:30px;
+    color: rgb(65, 7, 7);
+    padding: 1rem;
+    height: auto;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 3px;
+ }
+ 
+ .card-header:first-child {
+    border-radius: 20px;
+  }
+  .card-footer:last-child {
+    border-radius: 20px;
+  }
+ .card-header, .card-footer{
+    background-color: #4DD0E1;
+ }
+ .btn{
+    background-color: #00ACC1; 
+  }
+  .btn-font-black{
+      color: rgb(65, 7, 7);
+  }
+  .purchaselist_div ul{
+      list-style: None;
+      margin-left: 0px;
+      padding-left: 20px;
+      position: fixed;
+      
+  }
+  .purchaselist_div li{
+      display: inline-block;
+      padding-right: 1rem;
+      padding-top: 0rem;
+      font-weight:bold;
+      width: 170px;
+      height: 200px;
+  }
+  .purchaselist_div{
+    background-color: lightblue;
+    font-family: 'Courier New', Courier, monospace;
+    margin-top: 10px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    height: 5rem;
+}
+.purchaselist_remarks{
+    height: 15 rem;
+    
+    width: 200px;
+    margin-top: 6px;
+}
+.purchaselist_invoice_no{
+    margin-left: 0px;
+    padding: 0px;
+    width: 50px;
+}
+.purchaselist_invoicedate{
+    background-color: rgb(43, 135, 165);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    padding: 0px;
+    border-radius: 10px;
+    border: 1px solid darkblue;
+    height: 15 rem;
+    width: 100px;
+    margin-top: 6px;
+}
+#bridge_tableid tr td{
+    padding: 0;
+    margin: 0;
+  }
+#bridge_return_tableid tr td{
+    padding: 0;
+    margin: 0;
+}
+
+#empty_form_id1 tr td{
+    padding: 0;
+    margin: 0;
+}
+

@@ -1,0 +1,222 @@
+{% extends "billingapp/base.html" %}
+{% block body_block %}
+<div class="purchase-title-div">
+    <h5>Purchase Bill</h5>
+</div>
+<form method="POST">
+    {% csrf_token %}
+   {{BridgeForm.management_form}}
+   <!-- {{ PurchaseForm.non_form_errors }} -->
+   <div style="border: 1px solid green; height: 25px;">
+    {% if PurchaseForm.errors %}
+    {% for field in PurchaseForm %}
+    {% for error in field.errors %}
+        <p> {{ error }} </p>
+    {% endfor %}
+    {% endfor %}
+    {% for error in PurchaseForm.non_field_errors %}
+    <p> {{ error }} </p>
+    {% endfor %}
+{% endif %}
+</div>
+<div class="container-top">
+    <div class="row" >
+        <div class="col-md-2">
+        {{PurchaseForm.invoice_no.label}}
+        <div>{{PurchaseForm.invoice_no}}</div>
+        </div>
+    <div class="col-md-2">
+        {{PurchaseForm.purchase_state.label}}
+        <div>{{PurchaseForm.purchase_state}}</div>
+    </div>
+    <div class="col-md-2">
+        {{PurchaseForm.supplier.label}}
+        <div>{{PurchaseForm.supplier}}</div>
+    </div>
+    <div class="col-md-6" >
+        {{PurchaseForm.remarks.label}}
+        <div style="text-align: right;">{{PurchaseForm.remarks}}</div>
+    </div>
+</div>
+<div class="row" >
+    <div class="col-md-2">
+        {{PurchaseForm.invoice_date.label}}
+        <div>{{PurchaseForm.invoice_date}}</div>
+    </div>
+    <div class="col-md-2">
+        {{PurchaseForm.purchase_type.label}}
+        <div>{{PurchaseForm.purchase_type}}</div>
+    </div>
+</div>
+<div class="row" >
+    <!-- <div class="col-md-3">
+        {{PurchaseForm.remarks.label}}
+        <div>{{PurchaseForm.remarks}}</div>
+    </div> -->
+</div>
+</div>
+<input type="button" id="addmore_btn" value="Add More"/>
+<div id="purchase_formsetid" style="overflow-y:auto;overflow-x:auto; height: 250px; width: 100%;" class="table-responsive-md">
+    <table class="table table-striped table-bordered table-sm border-collapse " id="bridge_tableid" style="width: 100%;" >
+        <thead>
+            <tr>
+                <th style="width: 10px;">Item</th>
+                <th style="width: 10px;">HSN</th>
+                <th style="width: 10px;">Qty</th>
+                <th style="width: 10px;">Rate</th>
+                <th style="width: 10px;">UOM</th>
+                <th style="width: 10px;">Disc</th>
+                <th style="width: 10px;">Taxable</th>
+                <th style="width: 10px;">Tax</th>
+                <th style="width: 10px;">CGST</th>
+                <th style="width: 10px;">SGST</th>
+                <th style="width: 10px;">IGST</th>
+                <th style="width: 10px;">Amount</th>
+                <th style="width: 5x;">Del</th>
+                <!-- <th>P_Id</th> -->
+                </tr>
+                </thead>
+                <tbody>
+                    {% for items in BridgeForm %}
+                    <tr>
+                    <td>{{items.item}}</td>
+                    <td>{{items.item_hsncode}}</td>
+                    <td>{{items.item_quantity}}</td>
+                    <td>{{items.item_rate}}</td>
+                    <td>{{items.uom}}</td>
+                    <td>{{items.item_disc}}</td>
+                    <td>{{items.item_taxable}}</td>
+                    <td>{{items.item_tax}}</td>
+                    <td>{{items.item_CGST}}</td>
+                    <td>{{items.item_SGST}}</td>
+                    <td>{{items.item_IGST}}</td>
+                    <td>{{items.item_amnt}}</td>
+                    <td>{{items.DELETE}}</td>
+                    <td>{{items.purchasedetails_id}}</td>
+                    </tr>
+                    {% endfor %}
+            </tbody>
+            </table>
+    </div>
+<div class="container-bottom">
+    <div class="row">
+    <div class="col-md-8">
+    <div class="row" >
+        <div class="col-md-3">
+            {{PurchaseForm.purchase_taxableamnt.label}}
+            <div>{{PurchaseForm.purchase_taxableamnt}}</div>
+        </div>
+        <div class="col-md-3">
+            {{PurchaseForm.purchase_CGSTAmnt.label}}
+            <div>{{PurchaseForm.purchase_CGSTAmnt}}</div>
+        </div>
+        <div class="col-md-3">
+            {{PurchaseForm.purchase_SGSTAmnt.label}}
+            <div>{{PurchaseForm.purchase_SGSTAmnt}}</div>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-md-3">
+            {{PurchaseForm.purchase_IGSTAmnt.label}}
+            <div>{{PurchaseForm.purchase_IGSTAmnt}}</div>
+        </div>
+        <div class="col-md-3">
+            {{PurchaseForm.purchase_subtotal.label}}
+            <div>{{PurchaseForm.purchase_subtotal}}</div>
+        </div>
+        <div class="col-md-3">
+            {{PurchaseForm.purchase_Discount.label}}
+            <div>{{PurchaseForm.purchase_Discount}}</div>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-md-3">
+            {{PurchaseForm.purchase_GTotal.label}}
+            <div>{{PurchaseForm.purchase_GTotal}}</div>
+        </div>
+        <div class="col-md-3">
+            {{PurchaseForm.purchase_Paymode.label}}
+            <div>{{PurchaseForm.purchase_Paymode}}</div>
+        </div>
+        <div class="col-md-3">
+            <div> &nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div><input type="submit" value="Save"/> </div>
+        </div>
+    </div>
+</div> 
+    <div class="col-md-4">
+    <div>
+        <table class="table table-striped table-bordered table-sm"  id="id_purchase_gst_summary">
+            <thead>
+                <tr>
+                    <th>GST</th>
+                    <th>CGST</th>
+                    <th>SGST</th>
+                    <th>IGST</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody id="id_purchase_gst_summary_tbody">
+                {% if GST_wiselist %}
+                {% for item in GST_wiselist %}
+                <tr>
+                    <td>{{item.gst_rate}}</td>
+                    <td>{{item.CGST}}</td>
+                    <td>{{item.SGST}}</td>
+                    <td>{{item.IGST}}</td>
+                    <td>{{item.taxable_amnt}}</td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div> 
+</div>
+</div>
+</div>
+    <div id="empty_form_id" style="display: none;">
+        <table id="empty_form_id1" style="margin-top:0px; border-collapse:collapse; width: 100%;" class="table table-striped table-bordered table-sm" >
+<thead class="hiding" >
+    <tr>
+        <th style="width: 10px;"></th>
+        <th style="width: 10px;"></th>
+        <th style="width: 10px;"></th>
+        <th style="width: 10px;"></th>
+        <th style="width: 10px;"></th>
+        <th style="width: 10px;"></th>
+        <th style="width: 10px;"></th>
+        <th style="width: 10px;"></th>
+        <th style="width: 10px;"></th>
+        <th style="width: 10px;"></th>
+        <th style="width: 5px;"></th>
+    </tr>
+</thead>
+<tr>
+            <td>{{BridgeForm.empty_form.item}}</td>
+            <td>{{BridgeForm.empty_form.item_hsncode}}</td>
+            <td>{{BridgeForm.empty_form.item_quantity}}</td>
+            <td>{{BridgeForm.empty_form.item_rate}}</td>
+            <td>{{BridgeForm.empty_form.uom}}</td>
+            <td>{{BridgeForm.empty_form.item_disc}}</td>
+            <td>{{BridgeForm.empty_form.item_taxable}}</td>
+            <td>{{BridgeForm.empty_form.item_tax}}</td>
+            <td>{{BridgeForm.empty_form.item_CGST}}</td>
+            <td>{{BridgeForm.empty_form.item_SGST}}</td>
+            <td>{{BridgeForm.empty_form.item_IGST}}</td>
+            <td>{{BridgeForm.empty_form.item_amnt}}</td>
+            <td>{{BridgeForm.empty_form.DELETE}}</td>
+</tr>
+        </table>
+          
+    </div> 
+    
+</form>
+{% endblock %}

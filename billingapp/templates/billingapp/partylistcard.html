@@ -1,0 +1,29 @@
+{% extends "billingapp/base.html" %}
+{% block body_block %}
+<form method="POST">
+    {% csrf_token %}
+    <center>
+        <div class="container">
+            <div class="row">
+                {% for party in PartyList %}
+                <div class="col-sm-4">
+                    <div class="card mb-3 text-center " style="display: inline-block;">
+                        <div class="card-header">
+                            <h3>{{party.party_name}}</h3>
+                        </div>
+                       <div class="card-body">
+                        <div>City: {{party.party_city}}</div>
+                        <div>State: {{party.party_state}}</div>
+                        <div>Contact No: {{party.contact_no}}</div>
+                    </div>
+                        <div class="card-footer">
+                            <a class="btn btn-info" href="{% url 'party_edit' partyid=party.party_id %}">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </center>
+</form>
+{% endblock %}

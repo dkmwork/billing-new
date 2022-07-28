@@ -1,0 +1,29 @@
+{% extends "billingapp/base.html" %}
+{% block body_block %}
+<form method="POST">
+    {% csrf_token %}
+    <center>
+        <div class="container">
+            <div class="row">
+                {% for user in UserList %}
+                <div class="col-sm-4">
+                    <div class="card mb-3 text-center " style="display: inline-block;">
+                        <div class="card-header">
+                            <h3>{{user.user_name}}</h3>
+                        </div>
+                       <div class="card-body">
+                        <div>Designation: {{user.user_designation}}</div>
+                        <div>Branch: {{user.user_branch}}</div> 
+                        <div>Contact No: {{user.user_contact_no}}</div>
+                    </div>
+                        <div class="card-footer">
+                            <a class="btn btn-info" href="{% url 'user_edit' userid=user.user_id %}">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </center>
+</form>
+{% endblock %}

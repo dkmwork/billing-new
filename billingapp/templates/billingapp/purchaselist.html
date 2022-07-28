@@ -1,0 +1,40 @@
+{% extends "billingapp/base.html" %}
+{% block body_block %}
+<form method="POST">
+{% csrf_token %}
+
+{% for item in Purchaselist %}
+<div class="purchaselist_div">
+<ul>
+    
+    <li>
+        <div class="purchaselist_invoicedate">
+            <div>{{item.invoice_date|date:"Y"}}</div>
+            <div>
+                {{item.invoice_date|date:"d M"}}</div>
+            <div>{{item.invoice_date|date:"D"}}</div>
+         </div>
+    </li>
+<li>
+    <div class="purchaselist_invoice_no">{{item.invoice_no}}</div>
+</li>
+<li>
+    <div class="purchaselist_supplier">{{item.supplier.party_name}}</div>
+</li>
+
+<li>
+    <div class="purchaselist_gtotal">{{item.purchase_GTotal}}</div>
+
+    </li>
+<li>
+    <div class="purchaselist_remarks">{{item.remarks}}</div>
+    </li>
+<li>
+    <a class="btn btn-danger" id="edit_btn" href="{% url 'purchaselist_edit' purchaseid=item.purchase_id %}">Edit</a>
+</li>
+</ul>
+</div>
+{% endfor %}
+
+</form>
+{% endblock %}

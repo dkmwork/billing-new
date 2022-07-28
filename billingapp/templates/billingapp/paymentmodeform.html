@@ -1,0 +1,15 @@
+{% extends "billingapp/base.html" %}
+{% block body_block %}
+<form method="POST">
+    {% csrf_token %}
+    <center>
+        <div class="card">
+            <div class=""></div>
+        <table>
+            {{MyPayment.as_table}}
+        </table>
+    <input type="submit" class="btn btn-info" value="Save"/>
+</div>
+    </center>
+</form>
+{% endblock %}

@@ -1,0 +1,98 @@
+
+        {% extends "billingapp/base.html" %}
+        {% block body_block %}
+        {% load custom_tags %}
+        <form method="GET">
+            {% csrf_token %}
+            <table class="table table-striped table-bordered table-sm">
+             <tr>
+                <th>SlNo</th>
+                <th>InvDate</th>
+                <th>Supplier</th>
+                <th>SlNo</th>
+                <th>Item Name</th>
+                <th>Qty</th>
+                <th>UOM</th>
+                <th>Unit Rate</th>
+                <th>Disc Amnt</th>
+                <th>Tax Amnt</th>
+                <th>CGST</th>
+                <th>SGST</th>
+                <th>IGST</th>
+                <th>Item Total</th>
+                <th>G.Total</th>
+            </tr>
+                <tbody>
+                  
+                {% regroup PurchaseItemList by purchase_no.invoice_date as firstlist %}
+                  
+                    {% for item in firstlist %}
+                    <!-- {{item_list}} -->
+                    {% regroup item.list by purchase_no.supplier.party_name as secondlist %}
+                    
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{item.grouper}}</td>
+                        {% for iteminner in secondlist %}
+                        {% if forloop.first%}
+                        
+                        <td>{{iteminner.grouper}}</td> 
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{iteminner.list|find_Gtotal}}</td>
+                        {%else%}
+                        <td></td>
+                        <td></td>
+                        <td>{{iteminner.grouper}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{iteminner.list|find_Gtotal}}</td>
+                        {%endif%}
+                    </tr>
+                    {%for thirdinner in iteminner.list%}
+                    <tr>
+                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{forloop.counter}}</td>
+                    
+                    <td>{{thirdinner.item.product_name}}</td>
+                    <td>{{thirdinner.item_quantity}}</td>
+                    <td>{{thirdinner.uom}}</td>
+                <td>{{thirdinner.item_rate}}</td>
+                <td>{{thirdinner.item_disc}}</td>
+                <td>{{thirdinner.item_taxable}}</td>
+                <td>{{thirdinner.item_CGST}}</td>
+                <td>{{thirdinner.item_SGST}}</td>
+                <td>{{thirdinner.item_IGST}}</td>
+                <td>{{thirdinner.item_amnt}}</td>
+                <td></td>
+                    </tr>
+                          
+                    {% endfor %}
+                    {% endfor %}
+                    {% endfor %}
+        
+                </tbody>
+            </table>
+        </form>
+        {% endblock %}

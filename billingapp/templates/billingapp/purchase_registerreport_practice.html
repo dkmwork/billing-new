@@ -1,0 +1,107 @@
+{% extends "billingapp/base.html" %}
+{% block body_block %}
+{% load custom_tags %}
+<form method="GET">
+    {% csrf_token %}
+    <table class="table table-striped table-bordered table-sm">
+     <tr>
+        <th>SlNo</th>
+        <th>InvDate</th>
+        <th>Supplier</th>
+        <th>InvNo</th>
+        <th>SlNo</th>
+        <th>Item Name</th>
+        <th>Qty</th>
+        <th>UOM</th>
+        <th>Unit Rate</th>
+        <th>Disc Amnt</th>
+        <th>Tax Amnt</th>
+        <th>CGST</th>
+        <th>SGST</th>
+        <th>IGST</th>
+        <th>Item Total</th>
+        <th>G.Total</th>
+    </tr>
+        <tbody>
+          {% regroup PurchaseItemList by purchase_no.invoice_date as firstlist %}
+          {% for item in firstlist %}
+          {% regroup item.list by purchase_no.supplier.party_name as secondlist %}
+          <tr>
+
+            <td>{{forloop.counter}}</td>
+
+          {% for seconditem in secondlist %}
+          {% regroup seconditem.list by purchase_no.invoice_no as thirdlist %}
+          {% if forloop.first %}
+          
+          <td>{{item.grouper|date:'d/m/Y'}}</td>
+          {% else %}
+          <td></td>
+          <td></td>
+          {% endif %}
+          
+          <td>{{seconditem.grouper}}</td>
+          {% for thirditem in thirdlist %}
+          {% if forloop.first %}
+          <td>{{thirditem.grouper}}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{thirditem.list|find_Gtotal}}</td>
+         {% else %}
+         <td></td>
+         <td></td>
+         <td></td>
+         <td>{{thirditem.grouper}}</td>
+         <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+         <td>{{thirditem.list|find_Gtotal}}</td>
+         {% endif %}
+         
+          </tr>
+          {% for fourthitem in  thirditem.list %}
+          <tr>
+           
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>{{forloop.counter}}</td>
+          <td>{{fourthitem.item.product_name}}</td>
+          <td>{{fourthitem.item_quantity}}</td>
+          <td>{{fourthitem.uom}}</td>
+          <td>{{fourthitem.item_rate}} </td>
+          <td>{{fourthitem.item_disc}}</td>
+          <td>{{fourthitem.item_taxable}}</td>
+          <td>{{fourthitem.item_CGST}}</td>
+          <td>{{fourthitem.item_SGST}}</td>
+          <td>{{fourthitem.item_IGST}}</td>
+          <td>{{fourthitem.item_amnt}}</td>
+          <td></td>
+          {% endfor %} 
+        </tr>
+          {% endfor %}
+          {% endfor %}
+          {% endfor %}
+        
+        </tbody>
+    </table>
+</form>
+{% endblock %}

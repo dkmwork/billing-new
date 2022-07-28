@@ -1,0 +1,260 @@
+{% extends "billingapp/base.html" %}
+{% block body_block %}
+<div class="sales-title-div">
+    <h5>Sales Bill</h5>
+</div>
+<form method="POST">
+    {% csrf_token %}
+    {{ItemsBridgeForm.management_form}}
+    <input type="hidden" value={{StateCode}} id="custom_value_state_code"/>
+    <div>
+    {% if SalesForm.errors %}
+        {% for field in SalesForm  %}
+        {% for error in field.errors %}
+            <p>{{error}}</p>
+        {% endfor %}
+        {% endfor %}
+        {% for error in SalesForm.non_field_errors %}
+            <p>{{error}}</p>
+        {% endfor %}
+    {% endif %}
+    </div>
+    <div class="container-top">
+        <div class="row">
+            <div class="col-md-2">
+            <div class="form-group">
+                {{SalesForm.sales_type.label}}
+                {{SalesForm.sales_type}}
+            </div>
+            </div>
+            <div class="col-md-2">
+            <div class="form-group">
+                {{SalesForm.sales_invoiceno.label}}
+                {{SalesForm.sales_invoiceno}}
+            </div>
+            </div>
+            <div class="col-md-2">
+            <div class="form-group">
+                {{SalesForm.sales_state.label}}
+                {{SalesForm.sales_state}}
+            </div>
+            </div>
+            <div class="col-md-2">
+            <div class="form-group">
+                State Code
+                <input type="text" id="state_code_id" readonly=readonly/>
+                <!-- {{SalesForm.sales_state.state_code.label}}
+                {{SalesForm.sales_state.state_code}} -->
+            </div>
+            </div>
+            <div class="col-md-2">
+            <div class="form-group">
+                {{SalesForm.invoice_date.label}}
+                {{SalesForm.invoice_date}}  
+            </div>
+            </div>
+            <div class="col-md-2">
+            <div class="form-group">
+                {{SalesForm.sales_credit.label}}
+                {{SalesForm.sales_credit}}
+            </div>
+            </div>
+        </div>
+            <div class="row">
+                <div class="col-md-4">
+                    {{SalesForm.customer.label}}
+                    {{SalesForm.customer}}
+                </div>
+                <div class="col-md-2">
+                    <label>Mobile No</label>
+                    <input type="text" id="mobile_no_id" readonly=readonly/>
+                    <!-- {{SalesForm.customer.contact_no.label}}
+                    {{SalesForm.customer.contact_no}} -->
+                </div>
+            </div>
+            <div class="row">
+            </div>
+        </div>
+        <input type="button" id="sales_addmore_btn" value="Add More"/>
+        <div id="sales_formsetid" style="overflow-y:auto;overflow-x:auto; height: 250px; border: 1px solid blue; width: 1260px;">
+            <table class="table table-striped table-bordered  border-collapse " id="sales_bridge_tableid" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>ItemCode</th>
+                        <th>HSN</th>
+                        <th>Qty</th>
+                        <th>UOM</th>
+                        <th>Rate</th>
+                        <th>Disc</th>
+                        <th>Taxable</th>
+                        <th>Tax</th>
+                        <th>Cgst%</th>
+                        <th>Cgst</th>
+                        <th>Sgst%</th>
+                        <th>Sgst</th>
+                        <th>Igst%</th>
+                        <th>Igst</th>
+                        <th>Amount</th>
+                        <th>Del</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for items in ItemsBridgeForm %}
+                    <tr>
+                        <td>{{items.sales_item}}</td>
+                        <td>{{items.sales_item_code}}</td>
+                        
+                        <td>{{items.salesitem_hsncode}}</td>
+                        <td>{{items.salesitem_quantity}}</td>
+                        <td style="width: 50px;">{{items.sales_uom}}</td>
+                        <td>{{items.salesitem_rate}}</td>
+                        <td>{{items.salesitem_disc}}</td>
+                        <td>{{items.salesitem_taxable}}</td>
+                        <td style="width: 50px;">{{items.salesitem_tax}}</td>
+                        <td style="width: 50px;">{{items.salesitem_CGST}}</td>
+                        <td>{{items.salesitem_CGSTamnt}}</td>
+                        <td style="width: 50px;">{{items.salesitem_SGST}}</td>
+                        <td>{{items.salesitem_SGSTamnt}}</td>
+                        <td style="width: 50px;">{{items.salesitem_IGST}}</td>
+                        <td>{{items.salesitem_IGSTamnt}}</td>
+                        <td>{{items.salesitem_amnt}}</td>
+                        <td>{{items.DELETE}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="container-bottom">
+        <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3">
+                            TaxableAmnt
+                            <div>{{SalesForm.sales_taxableamount}}</div>
+                        </div>
+                        <div class="col-md-3">
+                            CGSTAmnt
+                            <div>{{SalesForm.sales_CGSTAmnt}}</div>
+                        </div>
+                        <div class="col-md-3">
+                            SGSTAmnt
+                            <div>{{SalesForm.sales_SGSTAmnt}}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            IGSTAmnt
+                            <div>{{SalesForm.sales_IGSTAmnt}}</div>
+                        </div>
+                        <div class="col-md-3">
+                            SubTotal
+                            <div>{{SalesForm.sales_subtotal}}</div>
+                        </div>
+                        <div class="col-md-3">
+                            Discount
+                            <div>{{SalesForm.sales_Discount}}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            GTotal
+                            <div>{{SalesForm.sales_GTotal}}</div>
+                        </div>
+                        <div class="col-md-3">
+                            Paymode
+                            <div>{{SalesForm.sales_Paymode}}</div>
+                        </div>
+                        <div class="col-md-3">
+                            <div> &nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <div><input type="submit" value="Save"/></div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-md-4">
+                        <div>
+                        <table class="table table-striped table-bordered table-sm"  id="id_sales_gst_summary">
+                        <thead>
+                                <tr>
+                                <th>GST</th>
+                                <th>Taxable</th>
+                                <th>CGST</th>
+                                <th>SGST</th>
+                                <th>IGST</th>
+                                <th>Amount</th>
+                                <th>Cess</th>
+                                </tr>
+                        </thead>
+                        <tbody id="id_sales_gst_summary_tbody">
+                                {% if GST_Wiselist %}
+                                {% for item in GST_Wiselist %}
+                                <tr>
+                                <td>{{item.salesgst_rate}}</td>
+                                <td>{{item.sales_taxable_amount}}</td>
+                                <td>{{item.sales_CGST}}</td>
+                                <td>{{item.sales_SGST}}</td>
+                                <td>{{item.sales_IGST}}</td>
+                                <td>{{item.salesitem_amnt}}</td>
+                                <td></td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                </tr>
+                                {% endif %}
+                        </tbody>
+                        </table>
+                        </div>
+                    </div>
+        </div>
+        </div>
+        <div id="empty_sales_form_id" style="display: none;">
+            <table id="empty_sales_form_id1" style="margin-top:0px; border-collapse:collapse; width: 100%;" class="table table-striped table-bordered table-sm padding_zero_table">
+                <thead class="hiding">
+                    <tr>
+                        <th ></th>
+                        <th ></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>{{ItemsBridgeForm.empty_form.sales_item}}</td>
+                    <td>{{ItemsBridgeForm.empty_form.sales_item_code}}</td>
+                    <td>{{ItemsBridgeForm.empty_form.salesitem_hsncode}}</td>
+                    <td>{{ItemsBridgeForm.empty_form.salesitem_quantity}}</td>
+                    <td style="width: 50px;">{{ItemsBridgeForm.empty_form.sales_uom}}</td>
+                    <td>{{ItemsBridgeForm.empty_form.salesitem_rate}}</td>
+                    <td>{{ItemsBridgeForm.empty_form.salesitem_disc}}</td>
+                    <td>{{ItemsBridgeForm.empty_form.salesitem_taxable}}</td>
+                    <td style="width: 50px;">{{ItemsBridgeForm.empty_form.salesitem_tax}}</td>
+                    <td style="width: 50px;">{{ItemsBridgeForm.empty_form.salesitem_CGST}}</td>
+                    
+                    <td>{{ItemsBridgeForm.empty_form.salesitem_CGSTamnt}}</td>
+                    <td style="width: 50px;">{{ItemsBridgeForm.empty_form.salesitem_SGST}}</td>
+                    <td>{{ItemsBridgeForm.empty_form.salesitem_SGSTamnt}}</td>
+                    <td style="width: 50px;">{{ItemsBridgeForm.empty_form.salesitem_IGST}}</td>
+                    <td>{{ItemsBridgeForm.empty_form.salesitem_IGSTamnt}}</td>
+                    <td>{{ItemsBridgeForm.empty_form.salesitem_amnt}}</td>
+                    <td>{{ItemsBridgeForm.empty_form.DELETE}}</td>
+                    
+                </tr>
+            </table>
+        </div>
+</form>
+{% endblock %}

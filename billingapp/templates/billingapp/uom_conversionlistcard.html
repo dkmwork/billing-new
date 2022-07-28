@@ -1,0 +1,26 @@
+{% extends "billingapp/base.html" %}
+{% block body_block %}
+<form method="POST">
+    {% csrf_token %}
+    <center>
+        <div class="container">
+            <div class="row">
+                {% for uom in UomConversionList %}
+                <div class="col-sm-4">
+                    <div class="card mb-3 text-center " style="display: inline-block;">
+                        <div class="card-header">
+                            <h3>{{uom.fromunit}}</h3>
+                        </div>
+                        <h6 class="card-title"></h6>
+                        <div>{{uom.tounit}}</div>    
+                        <div class="card-footer">
+                            <a class="btn btn-info" href="{% url 'uom_conversion_edit' conversionid=uom.conversion_id %}">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </center>
+</form>
+{% endblock %}

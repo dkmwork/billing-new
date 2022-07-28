@@ -1,0 +1,91 @@
+
+select[name$='-sales_item']{
+    width: 200px;
+} 
+ input[name$='-salesitem_CGST']{
+    width: 50px;
+}
+input[name$='-salesitem_SGST']{
+    width: 50px;
+}
+input[name$='-salesitem_IGST']{
+    width: 50px;
+}
+input[name$='amnt']{
+    width: 70px;
+}
+input[name$='salesitem_amnt']{
+    width: 100px;
+}
+
+/*
+input[name$='item_quantity']{
+    width: 60px;
+}
+input[name$='item_rate']{
+    width: 60px;
+}
+input[name$='item_disc']{
+    width: 75px;
+}
+input[name$='item_taxable']{
+    width: 100px;
+}
+
+input[name$='item_amnt']{
+    width: 100px;
+}
+*/
+input[name$='-salesitem_tax']{
+    width: 50px;
+} 
+input[name$='-salesitem_hsncode']{
+    width: 70px;
+}
+
+ #sales_bridge_tableid thead tr th{
+    font-weight: 150;
+    font-size: 15px;
+    padding: 0px;
+}
+#sales_bridge_tableid{
+    margin-bottom: 0px;
+}
+
+#sales_bridge_tableid tbody tr td{
+    padding: 0px;
+    width: 70px;
+}
+
+input[name$='sales_item_code']{
+width: 70px;
+} 
+.padding_zero_table tbody tr td {
+    padding: 0px;
+    width: 70px; 
+}
+.padding_zero_table thead tr th{
+    font-weight: 150;
+    font-size: 15px;
+    padding: 0px;
+}
+.padding_zero_table{
+    margin-bottom: 0px;
+}
+.container-bottom input{
+    width: 120px;
+}
+
+#sales_return_bridge_tableid{
+    margin-bottom: 0px;
+}
+#sales_return_bridge_tableid thead tr th{
+    font-weight: 150;
+    font-size: 15px;
+    padding: 0px;
+}
+#sales_return_bridge_tableid tbody tr td{
+    padding: 0px;
+    width: 70px; 
+}
+

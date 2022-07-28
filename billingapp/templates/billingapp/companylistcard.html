@@ -1,0 +1,30 @@
+{% extends "billingapp/base.html" %}
+{% block body_block %}
+<form method="POST">
+    {% csrf_token %}
+    <center>
+        <div class="container">
+            <div class="row">
+                {% for company in CompanyList %}
+                <div class="col-sm-4">
+                    <div class="card mb-3 text-center " style="display: inline-block;">
+                        <div class="card-header">
+                            <h3>{{company.company_name}}</h3>
+                        </div>
+                        
+                        <div class="card-body">
+                        <div>City: {{company.company_city}}</div>
+                        <div>State: {{company.company_state}}</div>
+                        <div>Contact No: {{company.contact_no}}</div>
+                    </div>
+                        <div class="card-footer">
+                            <a class="btn btn-info" href="{% url 'company_edit' companyid=company.company_id %}">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </center>
+</form>
+{% endblock %}

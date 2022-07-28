@@ -1,0 +1,29 @@
+{% extends "billingapp/base.html" %}
+{% block body_block %}
+<form method="POST">
+    {% csrf_token %}
+    <center>
+        <div class="container">
+            <div class="row">
+                {% for state in StateList %}
+                <div class="col-sm-4">
+                    <div class="card mb-3 text-center " style="display: inline-block;">
+                        <div class="card-header">
+                            <h3>{{state.state_name}}</h3>
+                        </div>
+                        <h6 class="card-title"></h6>
+                        <div class="card-body">
+                        <div>State Code: {{state.state_code}}</div>
+                        <div>Short Name: {{state.state_shortname}}</div>
+                    </div>
+                        <div class="card-footer">
+                            <a class="btn btn-info btn-font-black" href="{% url 'state_edit' stateid=state.state_id %}">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </center>
+</form>
+{% endblock %}

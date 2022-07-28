@@ -1,0 +1,29 @@
+{% extends "billingapp/base.html" %}
+{% block body_block %}
+<form method="POST">
+    {% csrf_token %}
+    <center>
+        <div class="container">
+            <div class="row">
+                {% for branch in BranchList %}
+                <div class="col-sm-4">
+                    <div class="card mb-3 text-center " style="display: inline-block;">
+                        <div class="card-header">
+                            <h3>{{branch.branch_name}}</h3>
+                        </div>
+                       <div class="card-body">
+                        <div>City: {{branch.branch_city}}</div>
+                        <div>State: {{ branch.branch_state}}</div>
+                        <div>Contact No: {{branch.poc_contact_no}}</div>
+                    </div>
+                        <div class="card-footer">
+                            <a class="btn btn-info" href="{% url 'branch_edit' branchid=branch.branch_id %}">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </center>
+</form>
+{% endblock %}

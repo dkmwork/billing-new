@@ -1,0 +1,28 @@
+{% extends "billingapp/base.html" %}
+{% block body_block %}
+<form method="POST">
+    {% csrf_token %}
+    <center>
+        <div class="container">
+            <div class="row">
+                {% for product in ProductList %}
+                <div class="col-sm-4">
+                    <div class="card mb-3 text-center " style="display: inline-block;">
+                        <div class="card-header">
+                            <h3>{{product.product_name}}</h3>
+                        </div>
+                       <div class="card-body">
+                        <div>Category: {{product.category.category_name}}</div>
+                        <div>Code: {{product.product_code}}</div>
+                    </div>
+                        <div class="card-footer">
+                            <a class="btn btn-info" href="{% url 'product_edit' productid=product.product_id %}">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </center>
+</form>
+{% endblock %}

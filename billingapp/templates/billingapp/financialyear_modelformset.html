@@ -1,0 +1,29 @@
+{% extends 'billingapp/base.html' %}
+{% block body_block %}
+<form method="POST">
+{% csrf_token %}
+<div id="year_formset" >
+{{FinancialYear.management_form}}
+<input type="button" value="Add Year" id="year_formset_add"/>
+{% for year in FinancialYear %}
+<table id="year_forset_body">
+    <tbody>
+        <tr>
+        <td>Fianancial Year</td>
+        <td>{{year.finacial_year}}</td>
+        </tr>
+    </tbody>
+</table>
+{% endfor %}
+</div>
+<div id="empty_form" style="display:none;">
+    <table>
+        <tr>
+        <td>Financial Year</td>
+        <td>{{FinancialYear.empty_form.finacial_year}}</td>
+        </tr>
+    </table>
+</div>
+<input type="submit" value="Save"/>
+</form>
+{% endblock %}

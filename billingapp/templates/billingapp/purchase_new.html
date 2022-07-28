@@ -1,0 +1,141 @@
+{% extends billingapp/base.html" %}
+{% block body_block %}
+<form method="POST">
+{% csrf_token %}
+{{BridgeForm.management_form}}
+<h4 style="text-align: center; background-color: cornflowerblue;;margin-bottom:40px;">PURCHASE BILL</h4>
+<div style="width:85%; margin-left:100px;margin-right:100px;border:1px solid black;">
+    <table style="width: 100%;margin-left:20px;">
+        <thead>
+            <tr>
+                <th>InvoiceNO</th>
+                <th>State</th>
+                <th>Supplier</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{PurchaseForm.invoice_no}}</td>
+                <td>{{PurchaseForm.purchase_state}}</td>
+                <td>{{PurchaseForm.supplier}}</td>
+                <td>{{PurchaseForm.remarks}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <table tyle="width: 50%;margin-left:20px;">
+        <thead>
+            <tr>
+                <th>InvoiceDate</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{PurchaseForm.invoice_date}}</td>
+                <td>{{PurchaseForm.purchase_type}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div style=" margin-left: 600px;">
+    <input type="button" value="Add More" id="Addmorebtnid" />
+</div>
+<div style="width:85%; margin-left:100px;border:1px solid black;">
+    <table id="idpurchasebilltbody" style=" display:inline-block;margin-left:30px;width:80%">
+        <thead>
+            <tr>
+
+                <th>Item</th>
+                <th>HSN</th>
+                <th>Quantity</th>
+                <th>Rate</th>
+                <th>UOM</th>
+                <th>Disc</th>
+                <th>Taxable</th>
+                <th>Tax</th>
+                <th>CGST</th>
+                <th>SGST</th>
+                <th>IGST</th>
+                <th>Amount</th>
+                <th>Delete</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for items in BridgeForm %}
+            <tr>
+
+                <td>{{items.item}}</td>
+                <td>{{items.item_hsncode}}</td>
+                <td>{{items.item_quantity}}</td>
+                <td>{{items.item_rate}}</td>
+                <td>{{items.uom}}</td>
+                <td>{{items.item_disc}}</td>
+                <td>{{items.item_taxable}}</td>
+                <td>{{items.item_tax}}</td>
+                <td>{{items.item_CGST}}</td>
+                <td>{{items.item_SGST}}</td>
+                <td>{{items.item_IGST}}</td>
+                <td>{{items.item_amnt}}</td>
+                <td>{{items.DELETE}}</td>
+            
+            </tr>
+            { % endfor %}
+        </tbody>
+    </table>
+</div>
+<div id="empty_form" style="display:none;margin-inline-start:0%;">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{BridgeForm.empty_form.item}}</td>
+                <td>{{BridgeForm.empty_form.item_hsncode}}</td>
+                <td>{{BridgeForm.empty_form.item_quantity}}</td>
+                <td>{{BridgeForm.empty_form.item_rate}}</td>
+                <td>{{BridgeForm.empty_form.uom}}</td>
+                <td>{{BridgeForm.empty_form.item_disc}}</td>
+                <td>{{BridgeForm.empty_form.item_taxable}}</td>
+                <td>{{BridgeForm.empty_form.item_tax}}</td>
+                <td>{{BridgeForm.empty_form.item_CGST}}</td>
+                <td>{{BridgeForm.empty_form.item_SGST}}</td>
+                <td>{{BridgeForm.empty_form.item_IGST}}</td>
+                <td>{{BridgeForm.empty_form.item_amnt}}</td>
+                <td>{{BridgeForm.empty_form.DELETE}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row"  style="margin-top:50px;margin-left:100px;margin-right:100px;border:1px solid black;">
+    <div class="col-md-8">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
+
+    </div>
+
+</div>
+</form>
+{% endblock %}

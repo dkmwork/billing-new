@@ -1,0 +1,29 @@
+{% extends "billingapp/base.html" %}
+{% block body_block %}
+<form method="POST">
+    {% csrf_token %}
+    <center>
+        <div class="container">
+            <div class="row">
+                {% for city in CityList %}
+                <div class="col-sm-4">
+                    <div class="card mb-3 text-center " style="display: inline-block;">
+                        <div class="card-header">
+                            <h3>{{city.city_name}}</h3>
+                        </div>
+                        <h6 class="card-title"></h6>
+                        <div class="card-body">
+                        <div>State: {{city.state_id}}</div>
+                        <div>Short Name: {{city.city_shortname}}</div>
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-info" href="{% url 'city_edit' cityid=city.city_id %}">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </center>
+</form>
+{% endblock %}

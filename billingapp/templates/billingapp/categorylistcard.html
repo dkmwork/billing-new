@@ -1,0 +1,30 @@
+{% extends "billingapp/base.html" %}
+{% block body_block %}
+<form method="POST">
+    {% csrf_token %}
+    <center>
+        <div class="container">
+            <div class="row">
+                {% for category in CategoryList %}
+                <div class="col-sm-4">
+                    <div class="card mb-3 text-center " style="height: 20rem; display: inline-block;">
+                        <div class="card-header">
+                            <h3>{{category.category_name}}</h3>
+                        </div>
+                        <h6 class="card-title"></h6>
+                        <div class="card-body" style="height: 10rem;">
+                        <div> Gst: {{category.gst_percent}}</div>
+                        <div>HSN Code: {{category.hsn_code}}</div>
+                        <div>Year: {{category.financial_year}}</div>
+                    </div>
+                        <div class="card-footer">
+                            <a class="btn btn-info" href="{% url 'category_edit' categoryid=category.category_id %}">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </center>
+</form>
+{% endblock %}
